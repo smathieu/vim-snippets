@@ -1,3 +1,4 @@
+# vim: set ts=2 sw=2 noexpandtab
 priority -50
 
 #
@@ -7,13 +8,13 @@ priority -50
 global !p
 
 def write_instance_vars(arglist, snip):
-	args = str(arglist).split(',')
+	args = str(arglist).split(",")
 	for arg in args:
-		name = arg.strip().replace(':', ' ').split(' ', 1)[0]
+		name = arg.strip().replace(":", " ").split(" ", 1)[0]
 		if name:
-			snip += '  @{} = {}'.format(name, name)
+			snip += "  @{} = {}".format(name, name)
 		else:
-			snip += ''
+			snip += ""
 
 endglobal
 
@@ -32,6 +33,18 @@ $0
 endsnippet
 
 snippet "\b(de)?f" "def <name>..." r
+def ${1:function_name}${2:(${3:*args})}
+	$0
+end
+endsnippet
+
+snippet defs
+def self.${1:function_name}${2:(${3:*args})}
+	$0
+end
+endsnippet
+
+snippet def
 def ${1:function_name}${2:(${3:*args})}
 	$0
 end
@@ -156,25 +169,25 @@ endsnippet
 
 snippet "(\S+)\.Map" ".map { |<element>| <block> }" r
 `!p snip.rv=match.group(1)`.map { |${1:`!p
-element_name = match.group(1).lstrip('$@')
+element_name = match.group(1).lstrip("$@")
 ematch = re.search("([A-Za-z][A-Za-z0-9_]+?)s?[^A-Za-z0-9_]*?$", element_name)
 try:
 	wmatch = re.search("([A-Za-z][A-Za-z0-9_]+)$", ematch.group(1))
 	snip.rv = wmatch.group(1).lower()
 except:
-	snip.rv = 'element'
+	snip.rv = "element"
 `}| $0 }
 endsnippet
 
 snippet "(\S+)\.map" ".map do |<element>| <block> end" r
 `!p snip.rv=match.group(1)`.map do |${1:`!p
-element_name = match.group(1).lstrip('$@')
+element_name = match.group(1).lstrip("$@")
 ematch = re.search("([A-Za-z][A-Za-z0-9_]+?)s?[^A-Za-z0-9_]*?$", element_name)
 try:
 	wmatch = re.search("([A-Za-z][A-Za-z0-9_]+)$", ematch.group(1))
 	snip.rv = wmatch.group(1).lower()
 except:
-	snip.rv = 'element'
+	snip.rv = "element"
 `}|
 	$0
 end
@@ -182,25 +195,25 @@ endsnippet
 
 snippet "(\S+)\.Rev(erse)?_?each" ".reverse_each { |<element>| <block> }" r
 `!p snip.rv=match.group(1)`.reverse_each { |${1:`!p
-element_name = match.group(1).lstrip('$@')
+element_name = match.group(1).lstrip("$@")
 ematch = re.search("([A-Za-z][A-Za-z0-9_]+?)s?[^A-Za-z0-9_]*?$", element_name)
 try:
 	wmatch = re.search("([A-Za-z][A-Za-z0-9_]+)$", ematch.group(1))
 	snip.rv = wmatch.group(1).lower()
 except:
-	snip.rv = 'element'
+	snip.rv = "element"
 `}| $0 }
 endsnippet
 
 snippet "(\S+)\.rev(erse)?_?each" ".reverse_each do |<element>| <block> end" r
 `!p snip.rv=match.group(1)`.reverse_each do |${1:`!p
-element_name = match.group(1).lstrip('$@')
+element_name = match.group(1).lstrip("$@")
 ematch = re.search("([A-Za-z][A-Za-z0-9_]+?)s?[^A-Za-z0-9_]*?$", element_name)
 try:
 	wmatch = re.search("([A-Za-z][A-Za-z0-9_]+)$", ematch.group(1))
 	snip.rv = wmatch.group(1).lower()
 except:
-	snip.rv = 'element'
+	snip.rv = "element"
 `}|
 	$0
 end
@@ -208,25 +221,25 @@ endsnippet
 
 snippet "(\S+)\.Each" ".each { |<element>| <block> }" r
 `!p snip.rv=match.group(1)`.each { |${1:`!p
-element_name = match.group(1).lstrip('$@')
+element_name = match.group(1).lstrip("$@")
 ematch = re.search("([A-Za-z][A-Za-z0-9_]+?)s?[^A-Za-z0-9_]*?$", element_name)
 try:
 	wmatch = re.search("([A-Za-z][A-Za-z0-9_]+)$", ematch.group(1))
 	snip.rv = wmatch.group(1).lower()
 except:
-	snip.rv = 'element'
+	snip.rv = "element"
 `}| $0 }
 endsnippet
 
 snippet "(\S+)\.each" ".each do |<element>| <block> end" r
 `!p snip.rv=match.group(1)`.each do |${1:`!p
-element_name = match.group(1).lstrip('$@')
+element_name = match.group(1).lstrip("$@")
 ematch = re.search("([A-Za-z][A-Za-z0-9_]+?)s?[^A-Za-z0-9_]*?$", element_name)
 try:
 	wmatch = re.search("([A-Za-z][A-Za-z0-9_]+)$", ematch.group(1))
 	snip.rv = wmatch.group(1).lower()
 except:
-	snip.rv = 'element'
+	snip.rv = "element"
 `}|
 	$0
 end
@@ -306,16 +319,34 @@ when ${2:expression}
 end
 endsnippet
 
-snippet class "class <class_name> def initialize ... end end"
-class ${1:`!p snip.rv = snip.basename.title().replace('_', '')`}
+snippet cla "class <class_name> def initialize ... end end"
+class ${1:`!p snip.rv = snip.basename.title().replace("_", "")`}
 	def initialize(${2:*args})
 		$0
 	end
 end
 endsnippet
 
-snippet module "module"
-module ${1:`!p snip.rv = snip.basename.title().replace('_', '')`}
+snippet mod "module"
+module ${1:`!p snip.rv = snip.basename.title().replace("_", "")`}
+	$0
+end
+endsnippet
+
+snippet concern
+module ${1:`!p snip.rv = snip.basename.title().replace("_", "")`}
+	extend ActiveSupport::Concern
+
+	included do
+	end
+
+	class_method do
+	end
+end
+endsnippet
+
+snippet mod "module"
+module ${1:`!p snip.rv = snip.basename.title().replace("_", "")`}
 	$0
 end
 endsnippet
@@ -338,14 +369,42 @@ protected
 $0
 endsnippet
 
-snippet context
-	context '${1:message}' do
-		${0}
-	end
+snippet con "context"
+context "${1:message}" do
+	${0}
+end
+endsnippet
+
+snippet desc
+describe "${1:message}" do
+	${0}
+end
+endsnippet
+
+snippet it
+it "${1:message}" do
+	${0}
+end
 endsnippet
 
 snippet ee
-	expect(${1}).to eq(${2})
+expect(${1}).to eq(${2})
 endsnippet
 
-# vim: set ts=2 sw=2 expandtab:
+snippet spec
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe ${0:`!p snip.rv = snip.basename.title().replace("_", "").replace("Spec", "")`} do
+	${1}
+end
+endsnippet
+
+snippet irb
+binding.irb
+endsnippet
+
+snippet debug
+binding.irb
+endsnippet

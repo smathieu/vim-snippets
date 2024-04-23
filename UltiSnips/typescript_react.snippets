@@ -1,12 +1,19 @@
 priority -50
-extends javascript_react
 extends typescript
 
 priority -49
 snippet rfc "react functional component"
-import React, { FC } from "react"
+import { Fragment, useCallback } from "react";
 
-interface ${1:function_name}Props {${4:props_types}}
+interface Props {
+}
 
-export const ${1:function_name}: FC<${1:function_name}Props> = (${2:props}) => ${3:function_body}
+export const MyClass = ({ }: Props) => {
+	return (
+		<Fragment>
+		</Fragment>
+	);
+};
+
+
 endsnippet

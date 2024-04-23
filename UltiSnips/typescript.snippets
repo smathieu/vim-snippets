@@ -1,7 +1,5 @@
 priority -50
 
-extends javascript
-
 snippet int "interface"
 interface ${1} {
 }
@@ -15,4 +13,12 @@ snippet fun "function (named)" b
 function ${1:function_name} (${2:argument}: ${3:argument_type}) {
 	${VISUAL}$0
 }
+endsnippet
+snippet test
+test("${1}", async () => {
+	${2}
+});
+endsnippet
+snippet log
+console.log("${1}");
 endsnippet
